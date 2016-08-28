@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -27,10 +28,9 @@ class MainSection extends Component {
     const { todos, actions } = this.props
     if (todos.length > 0) {
       return (
-        <input className="toggle-all"
-               type="checkbox"
-               checked={completedCount === todos.length}
-               onChange={actions.completeAll} />
+        <TouchableOpacity onPress={actions.completeAll}>
+          <Text>{completedCount === todos.length}</Text>
+        </TouchableOpacity>
       )
     }
   }
@@ -62,15 +62,15 @@ class MainSection extends Component {
     )
 
     return (
-      <section className="main">
+      <View>
         {this.renderToggleAll(completedCount)}
-        <ul className="todo-list">
+        <View>
           {filteredTodos.map(todo =>
             <TodoItem key={todo.id} todo={todo} {...actions} />
           )}
-        </ul>
+        </View>
         {this.renderFooter(completedCount)}
-      </section>
+      </View>
     )
   }
 }

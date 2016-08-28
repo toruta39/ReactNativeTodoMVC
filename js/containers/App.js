@@ -4,15 +4,18 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import * as TodoActions from '../actions'
+import { View } from 'react-native'
 
 class App extends Component {
   render() {
     const { todos, actions } = this.props
     return (
-      <div>
+      <View style={{
+              paddingTop: 20
+            }}>
         <Header addTodo={actions.addTodo} />
         <MainSection todos={todos} actions={actions} />
-      </div>
+      </View>
     )
   }
 }

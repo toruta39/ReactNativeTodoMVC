@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
-import classnames from 'classnames'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
@@ -14,9 +14,9 @@ class Footer extends Component {
     const itemWord = activeCount === 1 ? 'item' : 'items'
 
     return (
-      <span className="todo-count">
-        <strong>{activeCount || 'No'}</strong> {itemWord} left
-      </span>
+      <Text>
+        <Text>{activeCount || 'No'}</Text> {itemWord} left
+      </Text>
     )
   }
 
@@ -25,11 +25,9 @@ class Footer extends Component {
     const { filter: selectedFilter, onShow } = this.props
 
     return (
-      <a className={classnames({ selected: filter === selectedFilter })}
-         style={{ cursor: 'pointer' }}
-         onClick={() => onShow(filter)}>
-        {title}
-      </a>
+      <TouchableOpacity onPress={() => onShow(filter)}>
+        <Text>{title}</Text>
+      </TouchableOpacity>
     )
   }
 
@@ -37,27 +35,26 @@ class Footer extends Component {
     const { completedCount, onClearCompleted } = this.props
     if (completedCount > 0) {
       return (
-        <button className="clear-completed"
-                onClick={onClearCompleted} >
-          Clear completed
-        </button>
+        <TouchableOpacity onPress={onClearCompleted} >
+          <Text>Clear completed</Text>
+        </TouchableOpacity>
       )
     }
   }
 
   render() {
     return (
-      <footer className="footer">
+      <View>
         {this.renderTodoCount()}
-        <ul className="filters">
+        <View>
           {[ SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED ].map(filter =>
-            <li key={filter}>
+            <View key={filter}>
               {this.renderFilterLink(filter)}
-            </li>
+            </View>
           )}
-        </ul>
+        </View>
         {this.renderClearButton()}
-      </footer>
+      </View>
     )
   }
 }

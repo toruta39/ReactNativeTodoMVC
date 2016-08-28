@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 class TodoItem extends Component {
   constructor(props, context) {
@@ -35,27 +35,24 @@ class TodoItem extends Component {
       )
     } else {
       element = (
-        <div className="view">
-          <input className="toggle"
-                 type="checkbox"
-                 checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
-          <label onDoubleClick={this.handleDoubleClick.bind(this)}>
-            {todo.text}
-          </label>
-          <button className="destroy"
-                  onClick={() => deleteTodo(todo.id)} />
-        </div>
+        <View>
+          <TouchableOpacity onPress={() => completeTodo(todo.id)} >
+            <Text>{todo.completed ? 'Completed' : 'Active'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.handleDoubleClick.bind(this)}>
+            <Text>{todo.text}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => deleteTodo(todo.id)} >
+            <Text>Delete</Text>
+          </TouchableOpacity>
+        </View>
       )
     }
 
     return (
-      <li className={classnames({
-        completed: todo.completed,
-        editing: this.state.editing
-      })}>
+      <View>
         {element}
-      </li>
+      </View>
     )
   }
 }
