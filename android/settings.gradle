@@ -1,0 +1,3 @@
+rootProject.name = 'ReactNativeTodoMVC'
+
+include ':app'
