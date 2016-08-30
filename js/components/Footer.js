@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
@@ -14,8 +14,8 @@ class Footer extends Component {
     const itemWord = activeCount === 1 ? 'item' : 'items'
 
     return (
-      <Text>
-        <Text>{activeCount || 'No'}</Text> {itemWord} left
+      <Text style={style.count}>
+        {activeCount || 'No'} {itemWord} left
       </Text>
     )
   }
@@ -26,7 +26,10 @@ class Footer extends Component {
 
     return (
       <TouchableOpacity onPress={() => onShow(filter)}>
-        <Text>{title}</Text>
+        <Text style={[
+            style.filter,
+            selectedFilter === filter && style.activeFilter
+          ]} >{title}</Text>
       </TouchableOpacity>
     )
   }
@@ -35,8 +38,8 @@ class Footer extends Component {
     const { completedCount, onClearCompleted } = this.props
     if (completedCount > 0) {
       return (
-        <TouchableOpacity onPress={onClearCompleted} >
-          <Text>Clear completed</Text>
+        <TouchableOpacity onPress={onClearCompleted} style={style.clearContainer}>
+          <Text style={style.clear}>Clear completed</Text>
         </TouchableOpacity>
       )
     }
@@ -44,9 +47,9 @@ class Footer extends Component {
 
   render() {
     return (
-      <View>
+      <View style={style.container}>
         {this.renderTodoCount()}
-        <View>
+        <View style={style.filterContainer}>
           {[ SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED ].map(filter =>
             <View key={filter}>
               {this.renderFilterLink(filter)}
@@ -58,6 +61,51 @@ class Footer extends Component {
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  count: {
+    position: 'absolute',
+    left: 0,
+    top: 4,
+    padding: 3,
+    color: '#777',
+    fontSize: 10,
+  },
+  filterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  filter: {
+    color: '#777',
+    fontSize: 10,
+    margin: 3,
+    paddingTop: 3,
+    paddingBottom: 3,
+    paddingLeft: 7,
+    paddingRight: 7,
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: 'transparent',
+  },
+  activeFilter: {
+    borderColor: 'rgba(175, 47, 47, 0.2)',
+  },
+  clearContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 4,
+  },
+  clear: {
+    padding: 3,
+    color: '#777',
+    fontSize: 10,
+  }
+})
 
 Footer.propTypes = {
   completedCount: PropTypes.number.isRequired,
