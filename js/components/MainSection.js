@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -22,17 +22,6 @@ class MainSection extends Component {
 
   handleShow(filter) {
     this.setState({ filter })
-  }
-
-  renderToggleAll(completedCount) {
-    const { todos, actions } = this.props
-    if (todos.length > 0) {
-      return (
-        <TouchableOpacity onPress={actions.completeAll}>
-          <Text>{completedCount === todos.length}</Text>
-        </TouchableOpacity>
-      )
-    }
   }
 
   renderFooter(completedCount) {
@@ -62,18 +51,26 @@ class MainSection extends Component {
     )
 
     return (
-      <View>
-        {this.renderToggleAll(completedCount)}
-        <View>
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+      <View style={style.container}>
+        <ScrollView style={style.todoList}>
+          {filteredTodos.map((todo, i) =>
+            <TodoItem first={i === 0} key={todo.id} todo={todo} {...actions} />
           )}
-        </View>
+        </ScrollView>
         {this.renderFooter(completedCount)}
       </View>
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  todoList: {
+    flex: 1,
+  },
+})
 
 MainSection.propTypes = {
   todos: PropTypes.array.isRequired,

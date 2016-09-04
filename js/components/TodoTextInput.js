@@ -24,10 +24,11 @@ class TodoTextInput extends Component {
 
   render() {
     return (
-      <TextInput style={{
-                   width: 300,
+      <TextInput style={[{
+                   flex: 1,
                    height: 40
-                 }}
+                 }, this.props.style]}
+                 autoFocus={this.props.editing}
                  returnKeyType="done"
                  placeholder={this.props.placeholder}
                  value={this.state.text}

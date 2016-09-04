@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import TodoTextInput from './TodoTextInput'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 class TodoItem extends Component {
   constructor(props, context) {
@@ -29,39 +29,96 @@ class TodoItem extends Component {
     let element
     if (this.state.editing) {
       element = (
-        <TodoTextInput text={todo.text}
-                       editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
+        <View style={style.innerContainer}>
+          <TodoTextInput style={[style.text, style.input]}
+                         text={todo.text}
+                         editing={this.state.editing}
+                         onSave={(text) => this.handleSave(todo.id, text)} />
+        </View>
       )
     } else {
       element = (
-        <View>
-          <TouchableOpacity onPress={() => completeTodo(todo.id)} >
-            <Text>{todo.completed ? 'Completed' : 'Active'}</Text>
+        <View style={style.innerContainer}>
+          <TouchableOpacity style={style.left} onPress={() => completeTodo(todo.id)} >
+            <View style={[style.status, todo.completed && style.completedStatus]} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleDoubleClick.bind(this)}>
-            <Text>{todo.text}</Text>
+          <TouchableOpacity style={style.center} onPress={this.handleDoubleClick.bind(this)}>
+            <Text numberOfLines={1} style={[style.text]}>{todo.text}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deleteTodo(todo.id)} >
-            <Text>Delete</Text>
+          <TouchableOpacity style={style.right} onPress={() => deleteTodo(todo.id)} >
+            <View style={style.deleteButton} />
           </TouchableOpacity>
         </View>
       )
     }
 
     return (
-      <View>
+      <View style={[style.container, this.props.first && style.firstContainer]}>
         {element}
       </View>
     )
   }
 }
 
+const style = StyleSheet.create({
+  container: {
+    padding: 16,
+    borderColor: '#ededed',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+  },
+  firstContainer: {
+    borderTopWidth: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  left: {
+    flex: 0,
+    marginRight: 12,
+  },
+  center: {
+    flex: 1,
+  },
+  right: {
+    marginLeft: 12,
+    flex: 0,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 20,
+    height: 24,
+  },
+  input: {
+    width: null,
+    marginLeft: 36,
+  },
+  status: {
+    width: 24,
+    height: 24,
+    borderWidth: 1,
+    borderColor: '#ededed',
+    borderRadius: 12,
+  },
+  completedStatus: {
+    borderColor: '#5dc2af',
+  },
+  deleteButton: {
+    width: 24,
+    height: 24,
+    borderWidth: 1,
+    borderColor: '#cc9a9a',
+  }
+})
+
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
   editTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  completeTodo: PropTypes.func.isRequired
+  completeTodo: PropTypes.func.isRequired,
+  first: PropTypes.bool
 }
 
 export default TodoItem

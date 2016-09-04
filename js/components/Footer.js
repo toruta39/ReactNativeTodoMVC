@@ -64,13 +64,17 @@ class Footer extends Component {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
+    padding: 16,
+    borderTopWidth: 1,
+    borderColor: '#ededed',
+    backgroundColor: '#fff',
   },
   count: {
     position: 'absolute',
-    left: 0,
-    top: 4,
+    left: 16,
+    top: 20,
     padding: 3,
     color: '#777',
     fontSize: 10,
@@ -97,8 +101,8 @@ const style = StyleSheet.create({
   },
   clearContainer: {
     position: 'absolute',
-    right: 0,
-    top: 4,
+    right: 16,
+    top: 20,
   },
   clear: {
     padding: 3,
