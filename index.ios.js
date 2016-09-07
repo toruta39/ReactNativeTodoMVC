@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import WebAppShell from './js/components/WebAppShell';
 
 class ReactNativeTodoMVC extends Component {
   render() {
@@ -22,6 +23,7 @@ class ReactNativeTodoMVC extends Component {
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
         </Text>
+        <WebAppShell />
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
