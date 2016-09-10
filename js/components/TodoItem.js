@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import TodoTextInput from './TodoTextInput'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
 class TodoItem extends Component {
   constructor(props, context) {
@@ -40,13 +40,17 @@ class TodoItem extends Component {
       element = (
         <View style={style.innerContainer}>
           <TouchableOpacity style={style.left} onPress={() => completeTodo(todo.id)} >
-            <View style={[style.status, todo.completed && style.completedStatus]} />
+            <View style={[style.status, todo.completed && style.completedStatus]}>
+              {todo.completed && <Image source={require('./assets/tick.png')} style={style.tickImage}/>}
+            </View>
+
           </TouchableOpacity>
           <TouchableOpacity style={style.center} onPress={this.handleDoubleClick.bind(this)}>
             <Text numberOfLines={1} style={[style.text]}>{todo.text}</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={style.right} onPress={() => deleteTodo(todo.id)} >
-            <View style={style.deleteButton} />
+            <Image source={require('./assets/cross.png')} style={style.crossImage}/>
           </TouchableOpacity>
         </View>
       )
@@ -102,14 +106,15 @@ const style = StyleSheet.create({
     borderColor: '#ededed',
     borderRadius: 12,
   },
+  tickImage: {
+    margin: 4
+  },
   completedStatus: {
     borderColor: '#5dc2af',
   },
-  deleteButton: {
+  corssImage: {
     width: 24,
     height: 24,
-    borderWidth: 1,
-    borderColor: '#cc9a9a',
   }
 })
 
