@@ -8,6 +8,6 @@
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0",
-    "react-native-webview-bridge": "git+ssh://git@github.com/alinz/react-native-webview-bridge.git"
+    "react-native-webview-bridge": "git+ssh://git@github.com/toruta39/react-native-webview-bridge.git"
   }
 }
