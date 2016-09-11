@@ -43,8 +43,8 @@ class TodoItem extends Component {
             <View style={[style.status, todo.completed && style.completedStatus]}>
               {todo.completed && <Image source={require('./assets/tick.png')} style={style.tickImage}/>}
             </View>
-
           </TouchableOpacity>
+          
           <TouchableOpacity style={style.center} onPress={this.handleDoubleClick.bind(this)}>
             <Text numberOfLines={1} style={[style.text]}>{todo.text}</Text>
           </TouchableOpacity>
