@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "start:web": "webpack-dev-server --port 3000 --config web/webpack.config.dev.js --inline --hot --colors --quiet",
+    "start:web": "webpack-dev-server --port 3000 --config web/webpack.config.dev.js --inline --hot --colors",
     "storybook:web": "start-storybook -p 9001 -c web/.storybook"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0",
+    "react-native-web": "0.0.45",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2"
   }
