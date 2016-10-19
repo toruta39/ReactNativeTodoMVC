@@ -21,5 +21,20 @@ export function completeAll() {
 }
 
 export function clearCompleted() {
-  return { type: types.CLEAR_COMPLETED }
+  return (dispatch) => {
+    if (global.WebViewBridge) {
+      WebViewBridge.send('CLEAR_COMPLETED')
+      WebViewBridge.onMessage = (message) => {
+        if (message === 'CLEAR_COMPLETED_SUCCESS') {
+          dispatch({ type: types.CLEAR_COMPLETED })
+        }
+
+        WebViewBridge.onMessage = null
+      }
+    } else {
+      if (confirm('Do you really want to clear all completed items?')) {
+        dispatch({ type: types.CLEAR_COMPLETED })
+      }
+    }
+  }
 }
