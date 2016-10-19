@@ -107,12 +107,14 @@ const style = StyleSheet.create({
     borderRadius: 12,
   },
   tickImage: {
+    width: 16,
+    height: 16,
     margin: 4
   },
   completedStatus: {
     borderColor: '#5dc2af',
   },
-  corssImage: {
+  crossImage: {
     width: 24,
     height: 24,
   }

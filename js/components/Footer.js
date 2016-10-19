@@ -26,10 +26,12 @@ class Footer extends Component {
 
     return (
       <TouchableOpacity onPress={() => onShow(filter)}>
-        <Text style={[
+        <View style={[
             style.filter,
             selectedFilter === filter && style.activeFilter
-          ]} >{title}</Text>
+          ]} >
+          <Text style={style.filterText}>{title}</Text>
+        </View>
       </TouchableOpacity>
     )
   }
@@ -85,8 +87,6 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   filter: {
-    color: '#777',
-    fontSize: 10,
     margin: 3,
     paddingTop: 3,
     paddingBottom: 3,
@@ -95,6 +95,10 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     borderColor: 'transparent',
+  },
+  filterText: {
+    color: '#777',
+    fontSize: 10,
   },
   activeFilter: {
     borderColor: 'rgba(175, 47, 47, 0.2)',

@@ -11,8 +11,6 @@ class App extends Component {
     const { todos, actions } = this.props
     return (
       <View style={{
-              backgroundColor: '#f5f5f5',
-              paddingTop: 20,
               flex: 1,
             }}>
         <Header addTodo={actions.addTodo} />

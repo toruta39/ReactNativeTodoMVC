@@ -9,8 +9,6 @@ import { Provider } from 'react-redux'
 import configureStore from './js/store/configureStore'
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
   View
 } from 'react-native';
 import App from './js/containers/App'
@@ -25,9 +23,15 @@ class ReactNativeTodoMVC extends Component {
 
   render() {
     return (
-      <Provider store={this.state.store}>
-        <App />
-      </Provider>
+      <View style={{
+              backgroundColor: '#f5f5f5',
+              paddingTop: 20,
+              flex: 1,
+            }}>
+        <Provider store={this.state.store}>
+          <App />
+        </Provider>
+      </View>
     );
   }
 }
